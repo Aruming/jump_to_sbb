@@ -194,7 +194,7 @@ public class MainController {
         return p;
     }
 
-    @GetMapping("addPerson")
+    @GetMapping("/addPerson/{id}")
     @ResponseBody
     Person addPerson(Person p){
         return p;
