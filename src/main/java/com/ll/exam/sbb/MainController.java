@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -186,6 +185,20 @@ public class MainController {
 
         return "%d번 게시물을 삭제하였습니다.".formatted(article.getId());
     }
+
+    @GetMapping("addPersonOldWay")
+    @ResponseBody
+    Person addPersonOldWay(int id, int age, String name) {
+        Person p = new Person(id, age, name);
+
+        return p;
+    }
+
+    @GetMapping("addPerson")
+    @ResponseBody
+    Person addPerson(Person p){
+        return p;
+    }
 }
 
 @AllArgsConstructor
@@ -200,4 +213,13 @@ class Article{
     public Article(String title, String body){
         this(++lastId, title, body);
     }
+}
+
+@AllArgsConstructor
+@Getter
+@Setter
+class Person {
+    private int id;
+    private int age;
+    private String name;
 }
