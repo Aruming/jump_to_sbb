@@ -1,20 +1,36 @@
 package com.ll.exam.sbb;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+
 
 @SpringBootTest
 public class AnswerRepositoryTests {
     @Autowired
     private AnswerRepository answerRepository;
+    private int lastSampleDataId;
 
     @Autowired
     private QuestionRepository questionRepository;
+
+    @BeforeEach
+    void beforeEach() {
+        clearData();
+        createSampleData();
+    }
+
+    private void clearData() {
+        questionRepository.disableForeignKeyChecks();
+        answerRepository.truncate();
+        questionRepository.enableForeignKeyChecks();
+    }
+
+    private void createSampleData() {
+    }
 
     @Test
     void 저장() {
