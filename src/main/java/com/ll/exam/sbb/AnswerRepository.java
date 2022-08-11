@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 
-public interface AnswerRepository extends JpaRepository<Answer, Integer> {
+public interface AnswerRepository extends JpaRepository<Answer, Integer>, RepositoryUtil {
     @Transactional
     @Modifying
     @Query(value = "truncate answer", nativeQuery = true)
