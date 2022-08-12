@@ -8,14 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class QuestionController
 {
-    @Autowired
-    private QuestionService questionService;
-
-    @RequestMapping("list")
-    @ResponseBody
-    public String showList() {
-        questionService.findById(1);
-
-        return "HI";
+    @RequestMapping("/question/list")
+    public String list() {
+        return "question_list";
     }
 }
