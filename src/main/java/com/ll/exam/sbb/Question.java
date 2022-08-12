@@ -27,4 +27,9 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Answer> answerList = new ArrayList<>();
+
+    public void addAnswer(Answer answer) {
+        answer.setQuestion(this);
+        getAnswerList().add(answer);
+    }
 }
