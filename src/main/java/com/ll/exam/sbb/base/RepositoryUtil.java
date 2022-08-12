@@ -1,4 +1,4 @@
-package com.ll.exam.sbb;
+package com.ll.exam.sbb.base;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,9 +16,9 @@ public interface RepositoryUtil {
     void enableForeignKeyChecks();
 
     default void truncateTable() {
-        disableForeignKeyChecks();
+        //disableForeignKeyChecks();
         truncate();
-        enableForeignKeyChecks();
+        //enableForeignKeyChecks();
     }
 
     void truncate();

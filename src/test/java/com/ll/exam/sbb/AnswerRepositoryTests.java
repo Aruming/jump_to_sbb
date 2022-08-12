@@ -4,9 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class AnswerRepositoryTests {
@@ -25,6 +26,7 @@ public class AnswerRepositoryTests {
     private void clearData() {
         QuestionRepositoryTests.clearData(questionRepository);
 
+        answerRepository.deleteAll(); // DELETE FROM question;
         answerRepository.truncateTable();
     }
 
@@ -58,8 +60,8 @@ public class AnswerRepositoryTests {
     }
 
     @Test
-    void 조회(){
-        Answer a = answerRepository.findById(1).get();
+    void 조회() {
+        Answer a = this.answerRepository.findById(1).get();
         assertThat(a.getContent()).isEqualTo("sbb는 질문답변 게시판 입니다.");
     }
 }

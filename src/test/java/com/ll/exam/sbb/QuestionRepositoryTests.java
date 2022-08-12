@@ -43,6 +43,7 @@ public class QuestionRepositoryTests {
     }
 
     public static void clearData(QuestionRepository questionRepository) {
+        questionRepository.deleteAll(); // DELETE FROM question;
         questionRepository.truncateTable();
     }
 
@@ -51,7 +52,7 @@ public class QuestionRepositoryTests {
     }
 
     @Test
-    void saveData() {
+    void 저장() {
         Question q1 = new Question();
         q1.setSubject("sbb가 무엇인가요?");
         q1.setContent("sbb에 대해서 알고 싶습니다.");
@@ -69,7 +70,7 @@ public class QuestionRepositoryTests {
     }
 
     @Test
-    void deleteData() {
+    void 삭제() {
         assertThat(questionRepository.count()).isEqualTo(lastSampleDataId);
 
         Question q = this.questionRepository.findById(1).get();
@@ -79,7 +80,7 @@ public class QuestionRepositoryTests {
     }
 
     @Test
-    void modifyData() {
+    void 수정() {
         Question q = this.questionRepository.findById(1).get();
         q.setSubject("수정된 제목");
         questionRepository.save(q);
