@@ -1,6 +1,7 @@
 package com.ll.exam.sbb;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -25,5 +26,5 @@ public class Question {
     private LocalDateTime createDate;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    private List<Answer> answerList;
+    private List<Answer> answerList = new ArrayList<>();
 }
