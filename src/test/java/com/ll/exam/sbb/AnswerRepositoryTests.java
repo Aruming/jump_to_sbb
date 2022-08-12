@@ -36,7 +36,10 @@ public class AnswerRepositoryTests {
     private void createSampleData() {
         QuestionRepositoryTests.createSampleData(questionRepository);
 
+        // 관련 답변이 하나없는 상태에서 쿼리 발생
         Question q = questionRepository.findById(1).get();
+
+        System.out.println("q 1st : " + q);
 
         Answer a1 = new Answer();
         a1.setContent("sbb는 질문답변 게시판 입니다.");
@@ -69,10 +72,20 @@ public class AnswerRepositoryTests {
     }
 
     @Test
+    @Transactional
+    @Rollback(false)
     void 관련된_question_조회() {
-        Answer a = this.answerRepository.findById(1).get();
-        Question q = a.getQuestion();
+        // SELECT * FROM question WHERE id = 1
+        Question q = questionRepository.findById(1).get();
 
-        assertThat(q.getId()).isEqualTo(1);
+        System.out.println("q 2nd : " + q);
+
+        // DB 연결이 끊김
+
+        // SELECT * FROM answer WHERE question_id = 1
+        List<Answer> answerList = q.getAnswerList();
+
+        assertThat(answerList.size()).isEqualTo(2);
+        assertThat(answerList.get(0).getContent()).isEqualTo("sbb는 질문답변 게시판 입니다.");
     }
 }
