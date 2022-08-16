@@ -11,17 +11,11 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-// 컨트롤러는 Repository가 있는지 몰라야 한다.
-// 서비스는 웹브라우저라는것이 이 세상에 존재하는지 몰라야 한다.
-// 리포지터리는 서비스를 몰라야 한다.
-// 서비스는 컨트롤러를 몰라야 한다.
-// DB는 리포지터리를 몰라야 한다.
-// SPRING DATA JPA는 MySQL을 몰라야 한다.
-// SPRING DATA JPA(리포지터리) -> JPA -> 하이버네이트 -> JDBC -> MySQL Driver -> MySQL
+@RequestMapping("/question")
 public class QuestionController {
     private final QuestionService questionService;
 
-    @RequestMapping("/question/list")
+    @RequestMapping("/list")
     public String list(Model model) {
         List<Question> questionList = questionService.getList();
         // 미래에 실행된 question_list.html 에서
@@ -30,7 +24,7 @@ public class QuestionController {
         return "question_list";
     }
 
-    @RequestMapping("/question/detail/{id}")
+    @RequestMapping("/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id){
         Question question = this.questionService.getQuestion(id);
         model.addAttribute("question", question);
