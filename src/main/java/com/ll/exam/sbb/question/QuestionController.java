@@ -34,4 +34,10 @@ public class QuestionController {
     public String questionCreate(){
         return "question_form";
     }
+
+    @PostMapping("/create")
+    public String questionCreate(@RequestParam String subject, @RequestParam String content){
+        this.questionService.create(subject, content);
+        return "redirect:/question/list";
+    }
 }
