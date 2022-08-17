@@ -17,7 +17,7 @@ import java.util.List;
 public class QuestionController {
     private final QuestionService questionService;
 
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public String list(Model model) {
         List<Question> questionList = questionService.getList();
         // 미래에 실행된 question_list.html 에서
@@ -26,7 +26,7 @@ public class QuestionController {
         return "question_list";
     }
 
-    @RequestMapping("/detail/{id}")
+    @GetMapping("/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm){
         Question question = this.questionService.getQuestion(id);
         model.addAttribute("question", question);
