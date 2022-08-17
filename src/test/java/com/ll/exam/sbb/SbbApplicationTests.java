@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 @SpringBootTest
 class SbbApplicationTests {
@@ -109,5 +110,20 @@ class SbbApplicationTests {
 		this.questionRepository.delete(q);
 
 		assertEquals(1, questionRepository.count());
+	}
+
+	@Test
+	void createManySampleData() {
+		boolean run = true;
+
+		if (run == false) return;
+
+		IntStream.rangeClosed(3, 300).forEach(id -> {
+			Question q = new Question();
+			q.setSubject("%d번 질문".formatted(id));
+			q.setContent("%d번 질문의 내용".formatted(id));
+			q.setCreateDate(LocalDateTime.now());
+			questionRepository.save(q);
+		});
 	}
 }
