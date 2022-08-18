@@ -21,7 +21,7 @@ public class QuestionService {
         return this.questionRepository.findAll();
     }
 
-    public Question getQuestion(Integer id){
+    public Question getQuestion(Long id){
         Optional<Question> question = this.questionRepository.findById(id);
         if(question.isPresent()){
             return question.get();
