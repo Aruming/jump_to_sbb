@@ -10,10 +10,11 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<SiteUser, Long>, RepositoryUtil {
     boolean existsByUsername(String username);
-    Optional<SiteUser> findByusername(String username);
+
+    Optional<SiteUser> findByUsername(String username);
 
     @Transactional
     @Modifying
-    @Query(value = "ALTER TABLE question AUTO_INCREMENT = 1", nativeQuery = true)
+    @Query(value = "ALTER TABLE site_user AUTO_INCREMENT = 1", nativeQuery = true)
     void truncate(); // 이거 지우면 안됨, truncateTable 하면 자동으로 이게 실행됨
 }

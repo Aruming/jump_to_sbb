@@ -1,7 +1,6 @@
 package com.ll.exam.sbb.user;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
-@Controller
 @RequiredArgsConstructor
+@Controller
 @RequestMapping("/user")
 public class UserController {
+
     private final UserService userService;
 
     @GetMapping("/signup")
@@ -28,7 +28,7 @@ public class UserController {
         }
 
         if (!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
-            bindingResult.rejectValue("password2", "passwordInCorrect",
+            bindingResult.rejectValue("password2", "passwordIncorrect",
                     "2개의 패스워드가 일치하지 않습니다.");
             return "signup_form";
         }
@@ -36,10 +36,10 @@ public class UserController {
         try {
             userService.create(userCreateForm.getUsername(),
                     userCreateForm.getEmail(), userCreateForm.getPassword1());
-        }catch (SignupEmailDuplicatedException e) {
+        } catch (SignupEmailDuplicatedException e) {
             bindingResult.reject("signupEmailDuplicated", e.getMessage());
             return "signup_form";
-        }catch (SignupUsernameDuplicatedException e) {
+        } catch (SignupUsernameDuplicatedException e) {
             bindingResult.reject("signupUsernameDuplicated", e.getMessage());
             return "signup_form";
         }
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "login_form";
     }
 }

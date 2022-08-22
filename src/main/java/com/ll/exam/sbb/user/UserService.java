@@ -2,7 +2,6 @@ package com.ll.exam.sbb.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +13,12 @@ public class UserService {
     // 스프링이 책임지고 PasswordEncoder 타입의 객체를 만들어야 하는 상황
     private final PasswordEncoder passwordEncoder;
 
-    public SiteUser create(String username, String email, String password) throws SignupEmailDuplicatedException, SignupUsernameDuplicatedException{
+    public SiteUser create(String username, String email, String password) throws SignupUsernameDuplicatedException, SignupEmailDuplicatedException {
         SiteUser user = new SiteUser();
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
+
         try {
             userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
@@ -28,6 +28,8 @@ public class UserService {
                 throw new SignupEmailDuplicatedException("이미 사용중인 email 입니다.");
             }
         }
+
+
         return user;
     }
 }
