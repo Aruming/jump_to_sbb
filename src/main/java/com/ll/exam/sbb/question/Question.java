@@ -30,6 +30,8 @@ public class Question {
     @ManyToOne
     private SiteUser author;
 
+    private LocalDateTime modifyDate;
+
     public void addAnswer(Answer answer) {
         answer.setQuestion(this);
         getAnswerList().add(answer);
