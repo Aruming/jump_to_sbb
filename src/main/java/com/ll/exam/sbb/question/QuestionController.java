@@ -75,9 +75,11 @@ public class QuestionController {
     @GetMapping("/modify/{id}")
     public String questionModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
         Question question = this.questionService.getQuestion(id);
+
         if(!question.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
+
         questionForm.setSubject(question.getSubject());
         questionForm.setContent(question.getContent());
         return "question_form";
