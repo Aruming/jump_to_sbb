@@ -21,11 +21,17 @@
                 </div>
             </div>
             <div class="my-3">
+                <a onclick="if ( !confirm('정말로 추천하시겠습니까?') ) return false;" class="btn btn-sm btn-outline-secondary"
+                   th:href="@{|/question/vote/${question.id}|}">
+                    추천
+                    <span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}"></span>
+                </a>
                 <a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-outline-secondary"
                    sec:authorize="isAuthenticated()"
                    th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
                    th:text="수정"></a>
-                <a href="javascript:void(0);" th:data-uri="@{|/question/delete/${question.id}|}"
+                <a onclick="if ( !confirm('정말로 삭제하시겠습니까?') ) return false;"
+                   th:href="@{|/question/delete/${question.id}|}"
                    class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
                    th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
                    th:text="삭제"></a>
